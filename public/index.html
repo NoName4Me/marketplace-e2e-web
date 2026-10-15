@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="企业应用市场端到端交付测试应用">
+  <title>交付实验室 · 任务看板</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="任务看板首页">
+      <span class="brand-mark" aria-hidden="true">M</span>
+      <span class="brand-name">marketplace <small>/ e2e lab</small></span>
+    </a>
+    <div class="topbar-meta"><span class="live-dot" aria-hidden="true"></span><span id="service-status">服务连接中</span></div>
+  </header>
+
+  <main class="shell">
+    <div class="breadcrumbs">测试应用 <span>/</span> 项目工作台</div>
+    <section class="intro">
+      <div>
+        <p class="eyebrow">独立部署验证应用</p>
+        <h1>任务看板</h1>
+        <p class="lead">创建任务、标记完成、删除记录。每一步都是可验证的真实 HTTP 请求，用于测试构建、发布、监控和回滚。</p>
+      </div>
+      <div class="release-box">
+        <div class="release-head"><span>当前部署</span><span class="pill" id="release-state">读取中</span></div>
+        <p class="release-value" id="release-version">—</p>
+        <div class="release-row"><span>提交版本</span><code id="release-commit">—</code></div>
+        <div class="release-row"><span>构建时间</span><span id="release-time">—</span></div>
+      </div>
+    </section>
+
+    <section class="metrics" aria-label="任务统计">
+      <article class="metric"><div class="metric-label">全部任务</div><strong id="total-count">0</strong><small>当前运行实例</small></article>
+      <article class="metric"><div class="metric-label">进行中</div><strong id="open-count">0</strong><small>待处理事项</small></article>
+      <article class="metric"><div class="metric-label">已完成</div><strong id="done-count">0</strong><small>已标记结束</small></article>
+    </section>
+
+    <section class="workspace">
+      <section class="panel task-panel">
+        <div class="section-heading"><div><p class="eyebrow">Workspace</p><h2>我的任务</h2></div><button id="refresh-btn" class="button ghost" type="button">刷新数据</button></div>
+        <form id="new-task" class="new-task-form" autocomplete="off">
+          <label for="task-title" class="sr-only">任务标题</label>
+          <input id="task-title" name="title" required maxlength="120" placeholder="输入新的任务，例如：验证 v2 测试环境…" aria-label="任务标题">
+          <button class="button primary" id="add-btn" type="submit">添加任务</button>
+        </form>
+        <div class="list-toolbar">
+          <div class="filters" role="group" aria-label="筛选任务">
+            <button type="button" class="filter active" data-filter="all" aria-pressed="true">全部</button>
+            <button type="button" class="filter" data-filter="open" aria-pressed="false">待完成</button>
+            <button type="button" class="filter" data-filter="completed" aria-pressed="false">已完成</button>
+          </div>
+          <span id="result-count" class="subtle">0 条任务</span>
+        </div>
+        <div id="notice" role="status" aria-live="polite" class="notice" hidden></div>
+        <ul id="task-list" class="task-list" aria-label="任务列表"></ul>
+        <div id="empty-state" class="empty-state">
+          <div class="empty-icon" aria-hidden="true">✓</div>
+          <strong>还没有任务</strong>
+          <p>添加一条任务，即可验证数据写入和界面交互。</p>
+        </div>
+      </section>
+      <aside class="panel help-panel">
+        <p class="eyebrow">E2E Test checklist</p>
+        <h2>这次部署能验证什么？</h2>
+        <div class="checks">
+          <div><span class="check-num">01</span><p><strong>代码与镜像</strong><small>通过 GitHub Actions 生成 GHCR Digest</small></p></div>
+          <div><span class="check-num">02</span><p><strong>运行与访问</strong><small>检查 /healthz、/readyz、/version</small></p></div>
+          <div><span class="check-num">03</span><p><strong>可观测性</strong><small>Prometheus 抓取 /metrics</small></p></div>
+          <div><span class="check-num">04</span><p><strong>升级与回滚</strong><small>比较构建 SHA 与部署 Digest</small></p></div>
+        </div>
+        <div class="aside-note"><strong>数据说明</strong><p>任务存储在进程内存中。重启、重新部署或扩容后数据会清空，这属于测试应用的预期行为。</p></div>
+        <div class="tech-links"><a href="/healthz" target="_blank" rel="noopener noreferrer">健康检查 ↗</a><a href="/version" target="_blank" rel="noopener noreferrer">版本信息 ↗</a><a href="/metrics" target="_blank" rel="noopener noreferrer">监控指标 ↗</a></div>
+      </aside>
+    </section>
+  </main>
+  <footer class="footer">Marketplace E2E Web <span>·</span> 独立测试仓库，不用于存储实际业务数据</footer>
+</body>
+</html>
