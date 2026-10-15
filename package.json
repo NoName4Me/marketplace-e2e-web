@@ -1,0 +1,14 @@
+{
+  "name": "marketplace-e2e-web",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Minimal but real task manager for marketplace delivery verification",
+  "engines": { "node": ">=22 <25" },
+  "scripts": {
+    "start": "node src/server.mjs",
+    "test": "node --test",
+    "check": "node --check src/server.mjs && node --check public/app.js && npm test"
+  },
+  "license": "MIT"
+}
