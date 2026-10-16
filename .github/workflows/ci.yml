@@ -47,7 +47,7 @@ jobs:
 
   publish:
     name: Publish immutable multi-architecture image
-    if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/master' }}
+    if: ${{ github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/master' }}
     needs: verify
     runs-on: ubuntu-latest
     timeout-minutes: 30
