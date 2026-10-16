@@ -1,6 +1,6 @@
 {
   "name": "marketplace-e2e-web",
-  "version": "1.0.0",
+  "version": "1.1.0-e2e",
   "private": true,
   "type": "module",
   "description": "Minimal but real task manager for marketplace delivery verification",
